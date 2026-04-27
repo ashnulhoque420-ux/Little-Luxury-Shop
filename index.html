@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Luxury Shop - বিলাসবহুল পণ্যের দোকান</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">💎 Little Luxury Shop</div>
+            <div class="nav-links">
+                <a href="#home">হোম</a>
+                <a href="#products">পণ্য</a>
+                <a href="#about">আমাদের সম্পর্কে</a>
+                <a href="#contact">যোগাযোগ</a>
+                <button class="cart-btn" onclick="toggleCart()">🛒 কার্ট (<span id="cart-count">0</span>)</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- হিরো সেকশন -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>বিলাসবহুল পণ্যের স্বর্গে স্বাগতম</h1>
+            <p>সেরা মানের পণ্য এবং সেবা</p>
+            <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">এখনই কেনাকাটা করুন</button>
+        </div>
+    </section>
+
+    <!-- সার্চ এবং ফিল্টার -->
+    <div class="filter-section">
+        <div class="container">
+            <input type="text" id="search-box" placeholder="পণ্য খুঁজুন..." onkeyup="searchProducts()">
+            <select id="category-filter" onchange="filterByCategory()">
+                <option value="all">সব ক্যাটাগরি</option>
+                <option value="watch">ঘড়ি</option>
+                <option value="jewelry">গহনা</option>
+                <option value="perfume">পারফিউম</option>
+                <option value="bag">ব্যাগ</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- পণ্যের তালিকা -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2>আমাদের পণ্য সংগ্রহ</h2>
+            <div class="products-grid" id="products-grid">
+                <!-- পণ্যগুলি JavaScript দ্বারা যোগ করা হবে -->
+            </div>
+        </div>
+    </section>
+
+    <!-- শপিং কার্ট -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <span class="close-btn" onclick="toggleCart()">&times;</span>
+            <h2>আপনার শপিং কার্ট</h2>
+            <div class="cart-items" id="cart-items">
+                <p>কার্ট খালি আছে</p>
+            </div>
+            <div class="cart-total">
+                <strong>মোট মূল্য: ৳<span id="total-price">0</span></strong>
+            </div>
+            <button class="btn" onclick="checkout()">চেকআউট করুন</button>
+        </div>
+    </div>
+
+    <!-- আমাদের সম্পর্কে সেকশন -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>আমাদের সম্পর্কে</h2>
+            <p>Little Luxury Shop হল একটি প্রিমিয়াম অনলাইন শপ যেখানে আমরা বিশ্বমানের বিলাসবহুল পণ্য বিক্রয় করি। আমাদের লক্ষ্য আপনার জীবনকে আরও সুন্দর এবং মূল্যবান করে তোলা।</p>
+        </div>
+    </section>
+
+    <!-- যোগাযোগ সেকশন -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>আমাদের সাথে যোগাযোগ করুন</h2>
+            <p>📧 ইমেইল: info@littleluxuryshop.com</p>
+            <p>📞 ফোন: +880 1234-567890</p>
+            <p>📍 ঠিকানা: ঢাকা, বাংলাদেশ</p>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Little Luxury Shop. সর্বাধিকার সংরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
