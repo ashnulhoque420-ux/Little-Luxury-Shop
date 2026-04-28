@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্ডার ম্যানেজমেন্ট - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- সাইডবার -->
+        <aside class="sidebar">
+            <div class="logo">💎 Little Luxury Shop</div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="nav-item">📊 ড্যাশবোর্ড</a>
+                <a href="products.html" class="nav-item">📦 পণ্য</a>
+                <a href="orders.html" class="nav-item active">🛒 অর্ডার</a>
+                <a href="users.html" class="nav-item">👥 ইউজার</a>
+                <a href="analytics.html" class="nav-item">📈 অ্যানালিটিক্স</a>
+                <a href="settings.html" class="nav-item">⚙️ সেটিংস</a>
+            </nav>
+            <button onclick="logout()" class="logout-btn">🚪 লগ আউট</button>
+        </aside>
+
+        <!-- মূল কন্টেন্ট -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>🛒 অর্ডার ম্যানেজমেন্ট</h1>
+                <div class="user-info">
+                    <span id="username">Admin</span>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- অর্ডার স্ট্যাটাস সামারি -->
+                <div class="status-cards">
+                    <div class="status-card pending">
+                        <div class="status-icon">⏳</div>
+                        <div class="status-info">
+                            <h3>অপেক্ষমাণ</h3>
+                            <p id="pending-count">0</p>
+                        </div>
+                    </div>
+                    <div class="status-card confirmed">
+                        <div class="status-icon">✅</div>
+                        <div class="status-info">
+                            <h3>নিশ্চিত</h3>
+                            <p id="confirmed-count">0</p>
+                        </div>
+                    </div>
+                    <div class="status-card shipped">
+                        <div class="status-icon">📦</div>
+                        <div class="status-info">
+                            <h3>পাঠানো হয়েছে</h3>
+                            <p id="shipped-count">0</p>
+                        </div>
+                    </div>
+                    <div class="status-card delivered">
+                        <div class="status-icon">🎉</div>
+                        <div class="status-info">
+                            <h3>ডেলিভারি হয়েছে</h3>
+                            <p id="delivered-count">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- অর্ডার ফিল্টার -->
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label>অর্ডার অবস্থা:</label>
+                        <select id="status-filter">
+                            <option value="">সব</option>
+                            <option value="pending">⏳ অপেক্ষমাণ</option>
+                            <option value="confirmed">✅ নিশ্চিত</option>
+                            <option value="shipped">📦 পাঠানো হয়েছে</option>
+                            <option value="delivered">🎉 ডেলিভারি হয়েছে</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <input type="text" id="search-orders" placeholder="অর্ডার নম্বর বা গ্রাহক নাম খুঁজুন...">
+                    </div>
+                </div>
+
+                <!-- অর্ডার টেবিল -->
+                <div class="list-section">
+                    <h2>সমস্ত অর্ডার (<span id="order-count">0</span>)</h2>
+                    <div class="orders-container" id="orders-container">
+                        <p class="empty-message">কোনো অর্ডার নেই</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- অর্ডার বিস্তারিত মোডাল -->
+    <div id="order-detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeOrderModal()">&times;</span>
+            <h2>অর্ডার বিস্তারিত</h2>
+            
+            <div class="order-detail-box">
+                <div class="detail-row">
+                    <label>অর্ডার ID:</label>
+                    <span id="detail-order-id"></span>
+                </div>
+                <div class="detail-row">
+                    <label>গ্রাহক নাম:</label>
+                    <span id="detail-customer-name"></span>
+                </div>
+                <div class="detail-row">
+                    <label>ইমেইল:</label>
+                    <span id="detail-customer-email"></span>
+                </div>
+                <div class="detail-row">
+                    <label>ফোন:</label>
+                    <span id="detail-customer-phone"></span>
+                </div>
+                <div class="detail-row">
+                    <label>ঠিকানা:</label>
+                    <span id="detail-customer-address"></span>
+                </div>
+                <div class="detail-row">
+                    <label>মোট টাকা:</label>
+                    <span id="detail-total-amount"></span>
+                </div>
+                <div class="detail-row">
+                    <label>অর্ডার অবস্থা:</label>
+                    <select id="status-select">
+                        <option value="pending">⏳ অপেক্ষমাণ</option>
+                        <option value="confirmed">✅ নিশ্চিত</option>
+                        <option value="shipped">📦 পাঠানো হয়েছে</option>
+                        <option value="delivered">🎉 ডেলিভারি হয়েছে</option>
+                    </select>
+                </div>
+            </div>
+
+            <h3>পণ্য তালিকা</h3>
+            <div id="order-items-list" class="items-list"></div>
+
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="saveOrderStatus()">💾 স্ট্যাটাস সংরক্ষণ করুন</button>
+                <button class="btn btn-danger" onclick="deleteOrder()">🗑️ অর্ডার মুছুন</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="orders.js"></script>
+</body>
+</html>
