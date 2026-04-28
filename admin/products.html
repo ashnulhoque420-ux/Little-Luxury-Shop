@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পণ্য ব্যবস্থাপনা - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- সাইডবার -->
+        <aside class="sidebar">
+            <div class="logo">💎 Little Luxury Shop</div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">📊 ড্যাশবোর্ড</a>
+                <a href="products.html" class="nav-item active">📦 পণ্য</a>
+                <a href="orders.html" class="nav-item">🛒 অর্ডার</a>
+                <a href="users.html" class="nav-item">👥 ইউজার</a>
+                <a href="analytics.html" class="nav-item">📈 অ্যানালিটিক্স</a>
+                <a href="settings.html" class="nav-item">⚙️ সেটিংস</a>
+            </nav>
+            <button onclick="logout()" class="logout-btn">🚪 লগ আউট</button>
+        </aside>
+
+        <!-- মূল কন্টেন্ট -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>📦 পণ্য ব্যবস্থাপনা</h1>
+                <div class="user-info">
+                    <span id="username">Admin</span>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- নতুন পণ্য যোগ করার ফর্ম -->
+                <div class="form-section">
+                    <h2>নতুন পণ্য যোগ করুন</h2>
+                    <form id="product-form" class="product-form">
+                        <div class="form-group">
+                            <label>পণ্যের নাম *</label>
+                            <input type="text" id="product-name" required placeholder="যেমন: সোনার ঘড়ি">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>ক্যাটাগরি *</label>
+                                <select id="product-category" required>
+                                    <option value="">-- সিলেক্ট করুন --</option>
+                                    <option value="watch">⌚ ঘড়ি</option>
+                                    <option value="jewelry">💎 গহনা</option>
+                                    <option value="perfume">🌸 পারফিউম</option>
+                                    <option value="bag">👜 ব্যাগ</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>দাম (টাকা) *</label>
+                                <input type="number" id="product-price" required placeholder="10000">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>বর্ণনা *</label>
+                            <textarea id="product-description" required placeholder="পণ্যের বিস্তারিত বর্ণনা"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>স্টক পরিমাণ *</label>
+                            <input type="number" id="product-stock" required placeholder="50">
+                        </div>
+
+                        <div class="form-group">
+                            <label>ইমোজি (আইকন)</label>
+                            <input type="text" id="product-emoji" placeholder="💎" maxlength="2">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">✅ পণ্য যোগ করুন</button>
+                    </form>
+                </div>
+
+                <!-- পণ্য তালিকা -->
+                <div class="list-section">
+                    <h2>সকল পণ্য (<span id="product-count">0</span>)</h2>
+                    <div class="search-bar">
+                        <input type="text" id="search-products" placeholder="পণ্য খুঁজুন...">
+                    </div>
+                    <div class="products-table" id="products-container">
+                        <p class="empty-message">কোনো পণ্য নেই</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- এডিট মোডাল -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+            <h2>পণ্য সম্পাদন করুন</h2>
+            <form id="edit-form" class="product-form">
+                <input type="hidden" id="edit-product-id">
+                
+                <div class="form-group">
+                    <label>পণ্যের নাম *</label>
+                    <input type="text" id="edit-product-name" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ক্যাটাগরি *</label>
+                        <select id="edit-product-category" required>
+                            <option value="watch">⌚ ঘড়ি</option>
+                            <option value="jewelry">💎 গহনা</option>
+                            <option value="perfume">🌸 পারফিউম</option>
+                            <option value="bag">👜 ব্যাগ</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>দাম (টাকা) *</label>
+                        <input type="number" id="edit-product-price" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>বর্ণনা *</label>
+                    <textarea id="edit-product-description" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>স্টক পরিমাণ *</label>
+                    <input type="number" id="edit-product-stock" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">✅ পরিবর্তন সংরক্ষণ করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="products.js"></script>
+</body>
+</html>
